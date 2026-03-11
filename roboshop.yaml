@@ -1,0 +1,23 @@
+- name: create ec2 and r53 records
+  hosts: all # here we are not using inventory file
+  connection: local
+  vars:
+    ami_id: ami-0220d79f3f480ecf5
+    sg_id: sg-0d35d61ce5afa8d7d
+    environment: dev
+    instances:
+    - mongodb
+    - catalogue
+
+  tasks:
+  - name: create ec2 instance
+    amazon.aws.ec2_instance:  #this comes from amazon not ansible
+      instance_type: "t3.micro"
+      security_group: "{{ sg_id }}"
+      image_id: "{{ ami_id }}"
+      name: "{{ item }}"
+      tags: 
+        project: robosjop
+        component: "{{ item }}"
+        
+    loop: "{{ instances }}"

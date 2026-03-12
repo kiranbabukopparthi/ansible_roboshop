@@ -1,15 +1,15 @@
 - name: Loops topic
+  hosts: localhost
   connection: local
-  hosts: local
   vars: 
-  instance: 
-  - a 
-  - b
-  - c
+   instance: 
+    - a 
+    - b
+    - c
   tasks:
   - name: print variables in loop
-    Loop: "{{ instance }}"
-    register: output
     ansible.builtin.debug:
-      msg: "{{ output }}"
+      msg: "{{ item }}"
+    loop: "{{ instance }}"
+    register: output
     

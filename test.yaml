@@ -12,4 +12,7 @@
       msg: "{{ item }}"
     loop: "{{ instance }}"
     register: output
-    
+  
+  - name: printing register
+    ansible.builtin.debug:
+      msg: " {{ output }}"

@@ -1,0 +1,17 @@
+- name: Testing the loop
+  hosts: local
+  connection: local
+  vars:
+  instance:
+  - mangodb
+  - catalogue
+  tags:
+    Project: Testing
+    Envi: Test
+  loop: {{ instance }}
+    name: {{ item }}
+
+  tasks:
+  - name: print the names
+    ansible.builtin.debug:
+      msg: "{{ item }}"
